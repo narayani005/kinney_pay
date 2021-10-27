@@ -32,13 +32,13 @@
                                 <label class="col-md-2 col-form-label">Account Type :</label>
                                 <div class="col-md-1">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="trans_type" id="trans_type" value="kinney_pay" required>
+                                        <input class="form-check-input" type="radio" checked name="trans_type" id="trans_type" value="kinney_pay" required>
                                         <label class="form-check-label" for="trans_type">
                                             Kinney Pay
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-1">
+                                <!--div class="col-md-1">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="trans_type" id="trans_type" value="kinney_plus" required>
                                         <label class="form-check-label" for="trans_type">
@@ -53,7 +53,7 @@
                                             Kinney VPO
                                         </label>
                                     </div>
-                                </div>
+                                </div-->
                             </div>
 
 
