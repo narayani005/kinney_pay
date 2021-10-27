@@ -110,6 +110,8 @@ Route::view('/', 'welcome')-> name("welcome");
 Route::view('/contact_us', 'contact_us')-> name("contact_us");
 Route::view('/sitemap', 'sitemap')-> name("sitemap");
 Route::view('/easy_to_manage', 'easy_to_manage')-> name("easy_to_manage");
+Route::view('/responsive_design', 'responsive_design')-> name("responsive_design");
+Route::view('/latest_integration', 'latest_integration')-> name("latest_integration");
 
 /* Send SMS */
 Route::get('sendSMS', [SMSController::class, 'index']);
