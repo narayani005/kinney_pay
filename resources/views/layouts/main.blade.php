@@ -34,12 +34,12 @@
 
 					<div class="collapse navbar-collapse navbar-nav" id="navbarToggler">
 						<ul class="ml-auto">
-							<li><a class="nav-link active" href="#banner">Home</a></li>
-							<li><a class="nav-link" href="#features">Features</a></li>
-							<li><a class="nav-link" href="#how-it-works">How It Works</a></li>
-							<li><a class="nav-link" href="#pricing">Pricing</a></li>
+							<li><a class="nav-link active" href="{{url('/#banner')}}">Home</a></li>
+							<li><a class="nav-link" href="{{url('/#features')}}">Features</a></li>
+							<li><a class="nav-link" href="{{url('/#how-it-works')}}">How It Works</a></li>
+							<li><a class="nav-link" href="{{url('/#pricing')}}">Pricing</a></li>
 							<li class="dropdown">
-								<a class="nav-link" href="#blog">
+								<a class="nav-link" href="{{url('/#blog')}}">
 									Blog
 								</a>
 							</li>
@@ -54,7 +54,7 @@
 
         @yield('content')
 
-        <div class="separator no-border mb135 full-width"></div><!-- /.separator no-border mb135 -->
+<div class="separator no-border mb135 full-width"></div><!-- /.separator no-border mb135 -->
 <footer class="footer">
 	<div class="subscribe-section">
 		<div class="container">

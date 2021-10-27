@@ -1,3 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Kinney Pay</title>
+	<!-- mobile responsive meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('/kinnypay/assets/img/favicon/android-icon-192x192.png') }}">
+	<link rel="manifest" href="{{ asset('/kinnypay/assets/img/favicon/manifest.json') }}">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../ms-icon-144x144.html">
+	<meta name="theme-color" content="#ffffff">
+    <link href="{{ asset('/kinnypay/assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/kinnypay/assets/css/responsive.css') }}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+	<div class="preloader"><div class="spinner"></div></div><!-- /.preloader -->
+
+	<header class="header home-page-one">
+		<div class="container">
+			<div class="appilo-menu clearfix">
+				<nav class="navbar navbar-expand-lg navbar-custom navbar-light">
+
+					<a class="navbar-brand  mr-auto " href="#">
+						<img src="{{ asset('/kinnypay/assets/img/paylogo.png') }}" alt="Kinney Infotech Logo" class="default-logo">
+						<img src="{{ asset('/kinnypay/assets/img/wlogo.png') }}" alt="Kinney Infotech Logo" class="stick-logo">
+					</a>
+
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+						<i class="fas fa-bars"></i>
+					</button>
+
+					<div class="collapse navbar-collapse navbar-nav" id="navbarToggler">
+						<ul class="ml-auto">
+							<li><a class="nav-link active" href="#banner">Home</a></li>
+							<li><a class="nav-link" href="#features">Features</a></li>
+							<li><a class="nav-link" href="#how-it-works">How It Works</a></li>
+							<li><a class="nav-link" href="#pricing">Pricing</a></li>
+							<li class="dropdown">
+								<a class="nav-link" href="#blog">
+									Blog
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="sign-up-btn">
+						<a href="{{ url('/login') }}" class="sign-btn">Login</a>
+					</div>
+				</nav>
+			</div>
+		</header><!-- /.header -->
 
 		<section class="banner-static" id="banner">
 			<div class="container">
@@ -203,7 +256,7 @@
 					<i class="flaticon-responsive-design-symbol"></i>
 					<h3>Responsive Design for All <br /> Devices with Quality</h3>
 					<p>Kinney pay is using the Responsive design (RD) approach, that makes dynamic changes in the appearance of the application with respect to the Screen size and the orientation of the using device.</p>
-					<a href="#" target="_blank" class="more">Discover  <i class="fa fa-angle-right"></i></a>
+					<a href="{{url('/responsive_design')}}" target="_blank" class="more">Discover  <i class="fa fa-angle-right"></i></a>
 				</div><!-- /.feature-style-content -->
 			</div><!-- /.col-md-6 -->			
 		</div><!-- /.row -->	
@@ -261,7 +314,7 @@
 				<div class="intigration-content">
 					<h3>Designed & Worked <br /> by the Latest Integration</h3>
 					<p class="pr-4">As a part of the application, Kinney pay has multiple integrations, such as 2-Step verification, Wallet and Cryptocurrency integration with a decentralized server</p>
-					<a href="https://play.google.com/store/apps/details?id=com.kinneypay.wallet" target="_blank" class="more">All integration <i class="fa fa-angle-right"></i></a>
+					<a href="{{url('/latest_integration')}}" target="_blank" class="more">All integration <i class="fa fa-angle-right"></i></a>
 				</div><!-- /.intigration-content -->
 			</div><!-- /.col-md-5 -->
 			<div class="col-md-7">
