@@ -43,7 +43,7 @@ class UserController extends Controller
         $data = DB::table('wallets as w')
             ->join('users as u1', 'u1.id', '=', 'w.trans_to_id')
             ->join('users as u2', 'u2.id', '=', 'w.trans_by_id')
-            ->select('w.wallet_id','w.trans_to_id','w.trans_to_name','u1.mobile as trans_to_mobile','u1.trans_type as trans_to_acc_type', 'w.score as trans_amt','w.trans_by_id', 'w.trans_by_name','u2.mobile as trans_by_mobile', 'u2.trans_type as trans_by_acc_type','w.updated_at as trans_on','w.trans_id','w.status','w.remark')
+            ->select('w.wallet_id','w.trans_to_id','w.trans_to_name','u1.mobile as trans_to_mobile','u1.trans_type as trans_to_acc_type', 'w.score as trans_amt','w.trans_by_id', 'w.trans_by_name','u2.mobile as trans_by_mobile', 'u2.trans_type as trans_by_acc_type','w.updated_at as trans_on','w.trans_id','w.status','w.remark','w.trans_type')
             ->where('w.trans_to_id', '=', $id)
             ->orwhere('w.trans_by_id', '=', $id)
             ->orderBy('w.created_at', 'DESC')
@@ -482,20 +482,45 @@ class UserController extends Controller
             {
                 /* Kinney Plus User Depend on Wallet */
                 $prevUserWallet = \DB::connection('kinney_plus')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->first();
+                
+                if($request->self_account == 'send'){
+                    $user = User::where('mobile', $request->self_mobile)->first();
+                    /* Check Balance */
+                    if($request->score <= $user->total_amt)
+                    {
+                        /* Credit */
+                        $user->total_amt -=  $request->score;
+                        $user->save();
 
-                /* Check Balance */
-                if($request->score <= $prevUserWallet->uw_amount)
-                {
-                    /* Credit */
-                    $user = User::where('mobile', $request->self_account)->first();
+                        if($user->save())
+                        {
+                            /* Transaction Details to Sucess */
+                            $wallet =  new Wallet;
+                            $wallet->trans_to_name = Auth::user()->name;
+                            //$wallet->trans_to_id = $getUserList->userID;
+                            $wallet->trans_to_id = Auth::user()->id;
+                            $wallet->trans_id = generateTransNumber();
+                            $wallet->score = $request->score;
+                            $wallet->trans_by_id = Auth::user()->id;
+                            $wallet->trans_by_name = $request->self_account;
+                            $wallet->trans_type = $request->trans_type;
+                            $wallet->remark = $request->remark;
+                            $wallet->status = "Debited";
+                            $wallet->trans_by_name = Auth::user()->name;
+                            $wallet->save();
 
-                    $user->total_amt +=  $request->score;
-                    $user->save();
+                            /* Debit */
+                            $reduceAmount = $prevUserWallet->uw_amount +=  $request->score;
+                            \DB::connection('kinney_plus')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
 
-                    if($user->save())
+                            //return back()->with('success','Transaction Successfully.');
+                            return redirect()->route('home')->with('success','Transaction Successfully.');
+                        }
+                    }
+                    else
                     {
                         /* Transaction Details to Sucess */
-                        $wallet =  new Wallet;
+                       /* $wallet =  new Wallet;
                         $wallet->trans_to_name = Auth::user()->name;
                         $wallet->trans_to_id = $getUserList->userID;
                         $wallet->trans_id = generateTransNumber();
@@ -504,34 +529,64 @@ class UserController extends Controller
                         $wallet->trans_by_name = $request->self_account;
                         $wallet->trans_type = $request->trans_type;
                         $wallet->remark = $request->remark;
-                        $wallet->status = "Sucess";
+                        $wallet->status = "Failed";
                         $wallet->trans_by_name = Auth::user()->name;
-                        $wallet->save();
-
-                        /* Debit */
-                        $reduceAmount = $prevUserWallet->uw_amount -=  $request->score;
-                        \DB::connection('kinney_plus')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
-
-                        //return back()->with('success','Transaction Successfully.');
-                        return redirect()->route('home')->with('success','Transaction Successfully.');
+                        $wallet->save(); */
+                        return redirect()->back()->with('Transaction Failed.','Insufficient Balance check with kinney Plus Account');
                     }
-                }
-                else
-                {
-                    /* Transaction Details to Sucess */
-                    $wallet =  new Wallet;
-                    $wallet->trans_to_name = Auth::user()->name;
-                    $wallet->trans_to_id = $getUserList->userID;
-                    $wallet->trans_id = generateTransNumber();
-                    $wallet->score = $request->score;
-                    $wallet->trans_by_id = Auth::user()->id;
-                    $wallet->trans_by_name = $request->self_account;
-                    $wallet->trans_type = $request->trans_type;
-                    $wallet->remark = $request->remark;
-                    $wallet->status = "Failed";
-                    $wallet->trans_by_name = Auth::user()->name;
-                    $wallet->save();
-                    return redirect()->back()->with('Transaction Failed.','Insufficient Balance check with kinney Plus Account');
+
+                }else{
+                     /* Check Balance */
+                     if($request->score <= $prevUserWallet->uw_amount)
+                     {
+                         /* Credit */
+                         $user = User::where('mobile', $request->self_mobile)->first();
+ 
+                         $user->total_amt +=  $request->score;
+                         $user->save();
+ 
+                         if($user->save())
+                         {
+                             /* Transaction Details to Sucess */
+                             $wallet =  new Wallet;
+                             $wallet->trans_to_name = Auth::user()->name;
+                             //$wallet->trans_to_id = $getUserList->userID;
+                             $wallet->trans_to_id = Auth::user()->id;
+                             $wallet->trans_id = generateTransNumber();
+                             $wallet->score = $request->score;
+                             $wallet->trans_by_id = Auth::user()->id;
+                             $wallet->trans_by_name = $request->self_account;
+                             $wallet->trans_type = $request->trans_type;
+                             $wallet->remark = $request->remark;
+                             $wallet->status = "Credited";
+                             $wallet->trans_by_name = Auth::user()->name;
+                             $wallet->save(); 
+ 
+                             /* Debit */
+                             $reduceAmount = $prevUserWallet->uw_amount -=  $request->score;
+                             \DB::connection('kinney_plus')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
+ 
+                             //return back()->with('success','Transaction Successfully.');
+                             return redirect()->route('home')->with('success','Transaction Successfully.');
+                         }
+                     }
+                     else
+                     {
+                         /* Transaction Details to Sucess */
+                        /* $wallet =  new Wallet;
+                         $wallet->trans_to_name = Auth::user()->name;
+                         $wallet->trans_to_id = $getUserList->userID;
+                         $wallet->trans_id = generateTransNumber();
+                         $wallet->score = $request->score;
+                         $wallet->trans_by_id = Auth::user()->id;
+                         $wallet->trans_by_name = $request->self_account;
+                         $wallet->trans_type = $request->trans_type;
+                         $wallet->remark = $request->remark;
+                         $wallet->status = "Failed";
+                         $wallet->trans_by_name = Auth::user()->name;
+                         $wallet->save(); */
+                         return redirect()->back()->with('Transaction Failed.','Insufficient Balance check with kinney Plus Account');
+                     }
                 }
 
             }
@@ -549,19 +604,45 @@ class UserController extends Controller
             {
                 /* Kinney Plus User Depend on Wallet */
                 $prevUserWallet = \DB::connection('kinney_vpo')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->first();
+                
+                if($request->self_account == 'send'){
+                    $user = User::where('mobile', $request->self_mobile)->first();
+                    /* Check Balance */
+                    if($request->score <= $user->total_amt)
+                    {
+                        /* Credit */
+                        $user->total_amt -=  $request->score;
+                        $user->save();
 
-                /* Check Balance */
-                if($request->score <= $prevUserWallet->uw_amount)
-                {
-                    /* Credit */
-                    $user = User::where('mobile', $request->self_account)->first();
-                    $user->total_amt +=  $request->score;
-                    $user->save();
+                        if($user->save())
+                        {
+                            /* Transaction Details to Sucess */
+                            $wallet =  new Wallet;
+                            $wallet->trans_to_name = Auth::user()->name;
+                            //$wallet->trans_to_id = $getUserList->userID;
+                            $wallet->trans_to_id = Auth::user()->id;
+                            $wallet->trans_id = generateTransNumber();
+                            $wallet->score = $request->score;
+                            $wallet->trans_by_id = Auth::user()->id;
+                            $wallet->trans_by_name = $request->self_account;
+                            $wallet->trans_type = $request->trans_type;
+                            $wallet->remark = $request->remark;
+                            $wallet->status = "Debited";
+                            $wallet->trans_by_name = Auth::user()->name;
+                            $wallet->save();
 
-                    if($user->save())
+                            /* Debit */
+                            $reduceAmount = $prevUserWallet->uw_amount +=  $request->score;
+                            \DB::connection('kinney_vpo')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
+
+                            //return back()->with('success','Transaction Successfully.');
+                            return redirect()->route('home')->with('success','Transaction Successfully.');
+                        }
+                    }
+                    else
                     {
                         /* Transaction Details to Sucess */
-                        $wallet =  new Wallet;
+                        /*$wallet =  new Wallet;
                         $wallet->trans_to_name = Auth::user()->name;
                         $wallet->trans_to_id = $getUserList->userID;
                         $wallet->trans_id = generateTransNumber();
@@ -570,33 +651,64 @@ class UserController extends Controller
                         $wallet->trans_by_name = $request->self_account;
                         $wallet->trans_type = $request->trans_type;
                         $wallet->remark = $request->remark;
-                        $wallet->status = "Sucess";
+                        $wallet->status = "Failed";
                         $wallet->trans_by_name = Auth::user()->name;
-                        $wallet->save();
-                        /* Debit */
-                        $reduceAmount = $prevUserWallet->uw_amount -=  $request->score;
-                        \DB::connection('kinney_vpo')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
-
-                        //return back()->with('success','Transaction Successfully.');
-                        return redirect()->route('home')->with('success','Transaction Successfully.');
+                        $wallet->save(); */
+                        return redirect()->back()->with('Transaction Failed.','Insufficient Balance check with kinney Plus Account');
                     }
-                }
-                else
-                {
-                    /* Transaction Details to Sucess */
-                    $wallet =  new Wallet;
-                    $wallet->trans_to_name = Auth::user()->name;
-                    $wallet->trans_to_id = $getUserList->userID;
-                    $wallet->trans_id = generateTransNumber();
-                    $wallet->score = $request->score;
-                    $wallet->trans_by_id = Auth::user()->id;
-                    $wallet->trans_by_name = $request->self_account;
-                    $wallet->trans_type = $request->trans_type;
-                    $wallet->remark = $request->remark;
-                    $wallet->status = "Failed";
-                    $wallet->trans_by_name = Auth::user()->name;
-                    $wallet->save();
-                    return redirect()->back()->with('Transaction Failed.','Insufficient Balance check with kinney VPO Account');
+
+                }else{
+                     /* Check Balance */
+                     if($request->score <= $prevUserWallet->uw_amount)
+                     {
+                         /* Credit */
+                         $user = User::where('mobile', $request->self_mobile)->first();
+ 
+                         $user->total_amt +=  $request->score;
+                         $user->save();
+ 
+                         if($user->save())
+                         {
+                             /* Transaction Details to Sucess */
+                             $wallet =  new Wallet;
+                             $wallet->trans_to_name = Auth::user()->name;
+                             //$wallet->trans_to_id = $getUserList->userID;
+                             $wallet->trans_to_id = Auth::user()->id;
+                             $wallet->trans_id = generateTransNumber();
+                             $wallet->score = $request->score;
+                             $wallet->trans_by_id = Auth::user()->id;
+                             $wallet->trans_by_name = $request->self_account;
+                             $wallet->trans_type = $request->trans_type;
+                             $wallet->remark = $request->remark;
+                             $wallet->status = "Credited";
+                             $wallet->trans_by_name = Auth::user()->name;
+                             $wallet->save();
+ 
+                             /* Debit */
+                             $reduceAmount = $prevUserWallet->uw_amount -=  $request->score;
+                             \DB::connection('kinney_vpo')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
+ 
+                             //return back()->with('success','Transaction Successfully.');
+                             return redirect()->route('home')->with('success','Transaction Successfully.');
+                         }
+                     }
+                     else
+                     {
+                         /* Transaction Details to Sucess */
+                       /*  $wallet =  new Wallet;
+                         $wallet->trans_to_name = Auth::user()->name;
+                         $wallet->trans_to_id = $getUserList->userID;
+                         $wallet->trans_id = generateTransNumber();
+                         $wallet->score = $request->score;
+                         $wallet->trans_by_id = Auth::user()->id;
+                         $wallet->trans_by_name = $request->self_account;
+                         $wallet->trans_type = $request->trans_type;
+                         $wallet->remark = $request->remark;
+                         $wallet->status = "Failed";
+                         $wallet->trans_by_name = Auth::user()->name;
+                         $wallet->save(); */
+                         return redirect()->back()->with('Transaction Failed.','Insufficient Balance check with kinney Plus Account');
+                     }
                 }
 
             }
@@ -606,6 +718,8 @@ class UserController extends Controller
             }
         }
     }
+
+
 
     function transactionHistory()
     {
@@ -690,13 +804,12 @@ class UserController extends Controller
     function createAccount(){
 
         $id = auth()->user()->id;
-
+        
         $accounts = AddAccount::where('ref_id', $id)->get();
 
-        $kinneyplusAmt = \DB::connection('kinney_plus')->table("sb_user_wallet")->get();
+        //$kinneyplusAmt = \DB::connection('kinney_plus')->table("sb_user_wallet")->get();
 
-        $kinneyvpoAmt = \DB::connection('kinney_vpo')->table("sb_user_wallet")->get();
-
+        //$kinneyvpoAmt = \DB::connection('kinney_vpo')->table("sb_user_wallet")->get();
         return view('user.accounts.create', ['accounts' => $accounts]);
 
     }

@@ -26,7 +26,8 @@ class CreditDebitController extends BaseController
                 'send_amount' => 'required',
                 'trans_type' => 'required',
                 'unique_id' => 'required',
-                'uid' => 'required'
+                'uid' => 'required',
+                'trans_method' => 'required'
             ]);
        
             if($validator->fails()){
@@ -57,87 +58,142 @@ class CreditDebitController extends BaseController
                 /* Identify Mobile # using it */
                 $getUserList = \DB::connection('kinney_vpo')->table("sb_end_users")->where('phone', $request->mobile)->first();  
                 
-                
-                if(!empty($getUserList->userID))
-                {
-                    /* Kinney VPO User Depend on Wallet */
-                    $prevUserWallet = \DB::connection('kinney_vpo')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->first();
-        
-                    /* Check Balance */
-                    if($request->send_amount <= $prevUserWallet->uw_amount)
+                    if(!empty($getUserList->userID))
                     {
-                        /* Credit */
+                        /* Kinney VPO User Depend on Wallet */
+                        $prevUserWallet = \DB::connection('kinney_vpo')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->first();
+                        
+                    if($request->trans_method == 'send'){
+                        /* Check Balance */
                         $user = User::find($request->user_id);
-                        $credit = $user->total_amt + $request->send_amount;
-                        $user->total_amt = $credit;
-                        $ures = $user->update();
+                        if($request->send_amount <= $user->total_amt)
+                        {
+                            /* Credit */
+                            $credit = $user->total_amt - $request->send_amount;
+                            $user->total_amt = $credit;
+                            $ures = $user->update();
 
-                        if($ures)
-                        {                            
-                            /* Debit */
-                            $reduceAmount = $prevUserWallet->uw_amount -=  $request->send_amount;
-                            \DB::connection('kinney_vpo')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
-                            
-                            $status = 'Success';
-                            return $this->wallet_transaction($data,$status);
+                            if($ures)
+                            {                            
+                                /* Debit */
+                                $reduceAmount = $prevUserWallet->uw_amount +=  $request->send_amount;
+                                \DB::connection('kinney_vpo')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
+                                
+                                $status = 'Debited';
+                                return $this->wallet_transaction($data,$status);
 
-                            //return $this->sendResponse($user, 'Transaction Successfully.');
+                                //return $this->sendResponse($user, 'Transaction Successfully.');
+                            }
+            
+                        }else
+                        {
+                            return $this->sendError('Transaction Failed.', ['error'=>'Insufficient Balance']);
                         }
-        
+                    }else{
+                       /* Check Balance */
+                       if($request->send_amount <= $prevUserWallet->uw_amount)
+                       {
+                           /* Credit */
+                           $user = User::find($request->user_id);
+                           $credit = $user->total_amt + $request->send_amount;
+                           $user->total_amt = $credit;
+                           $ures = $user->update();
+
+                           if($ures)
+                           {                            
+                               /* Debit */
+                               $reduceAmount = $prevUserWallet->uw_amount -=  $request->send_amount;
+                               \DB::connection('kinney_vpo')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
+                               
+                               $status = 'Credited';
+                               return $this->wallet_transaction($data,$status);
+
+                               //return $this->sendResponse($user, 'Transaction Successfully.');
+                           }
+           
+                       }else
+                       {
+                           return $this->sendError('Transaction Failed.', ['error'=>'Insufficient Balance']);
+                       } 
                     }
-                    else
-                    {
-                        return $this->sendError('Transaction Failed.', ['error'=>'Insufficient Balance']);
-                    }
-                
-                }else{
-        
-                    return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
                     
-                } 
+                    }else{
+            
+                        return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+                        
+                    } 
+                
             }
             elseif($request->trans_type == "kinney_plus")
             {
                 /* Identify Mobile # using it */
                 $getUserList = \DB::connection('kinney_plus')->table("sb_end_users")->where('phone', $request->mobile)->first();  
                 
-                if(!empty($getUserList->userID))
-                {
-                    /* Kinney Plus User Depend on Wallet */
-                    $prevUserWallet = \DB::connection('kinney_plus')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->first();
-                    
-                    /* Check Balance */
-                    if($request->send_amount <= $prevUserWallet->uw_amount)
+                    if(!empty($getUserList->userID))
                     {
-                        /* Credit */
-                        //$user = User::where('mobile', $request->mobile)->first();
+                        /* Kinney VPO User Depend on Wallet */
+                        $prevUserWallet = \DB::connection('kinney_plus')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->first();
+                        
+                    if($request->trans_method == 'send'){
+                        /* Check Balance */
                         $user = User::find($request->user_id);
-                        $credit = $user->total_amt + $request->send_amount;
-                        $user->total_amt = $credit;
-                        $ures = $user->update();
+                        if($request->send_amount <= $user->total_amt)
+                        {
+                            /* Credit */
+                            $credit = $user->total_amt - $request->send_amount;
+                            $user->total_amt = $credit;
+                            $ures = $user->update();
 
-                        if($ures)
-                        {  
-                            /* Debit */
-                            $reduceAmount = $prevUserWallet->uw_amount -=  $request->send_amount;
-                            
-                            \DB::connection('kinney_plus')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
-                            
-                            $status = 'Success';
-                            return $this->wallet_transaction($data,$status);
-                            //return $this->sendResponse($user, 'Transaction Successfully.');
+                            if($ures)
+                            {                            
+                                /* Debit */
+                                $reduceAmount = $prevUserWallet->uw_amount +=  $request->send_amount;
+                                \DB::connection('kinney_plus')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
+                                
+                                $status = 'Debited';
+                                return $this->wallet_transaction($data,$status);
+
+                                //return $this->sendResponse($user, 'Transaction Successfully.');
+                            }
+            
+                        }else
+                        {
+                            return $this->sendError('Transaction Failed.', ['error'=>'Insufficient Balance']);
                         }
+                    }else{
+                       /* Check Balance */
+                       if($request->send_amount <= $prevUserWallet->uw_amount)
+                       {
+                           /* Credit */
+                           $user = User::find($request->user_id);
+                           $credit = $user->total_amt + $request->send_amount;
+                           $user->total_amt = $credit;
+                           $ures = $user->update();
+
+                           if($ures)
+                           {                            
+                               /* Debit */
+                               $reduceAmount = $prevUserWallet->uw_amount -=  $request->send_amount;
+                               \DB::connection('kinney_plus')->table("sb_user_wallet")->where('uw_user_id', $getUserList->userID)->update(['uw_amount' => $reduceAmount]);
+                               
+                               $status = 'Credited';
+                               return $this->wallet_transaction($data,$status);
+
+                               //return $this->sendResponse($user, 'Transaction Successfully.');
+                           }
+           
+                       }else
+                       {
+                           return $this->sendError('Transaction Failed.', ['error'=>'Insufficient Balance']);
+                       } 
                     }
-                    else
-                    {
-                        return $this->sendError('Transaction Failed.', ['error'=>'Insufficient Balance']);
-                    }
-                
-                }else{
-        
-                    return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
                     
-                } 
+                    }else{
+            
+                        return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+                        
+                    } 
+                
             }
             else 
             {
@@ -188,7 +244,6 @@ class CreditDebitController extends BaseController
          $wallet->score = $request['send_amount'];
          $wallet->trans_by_id = $request['user_id'];
          $wallet->trans_id = generateTransNumber();
-        // $wallet->trans_id = '55655';
          $wallet->trans_by_name = $user->name;
          $wallet->trans_type = $request['trans_type'];
          $wallet->remark = $remark;
@@ -197,7 +252,7 @@ class CreditDebitController extends BaseController
         
          if($res){
             
-                if($status == 'Success'){
+                if($status == 'Success' || $status == 'Credited' || $status == 'Debited'){
                    return  $result = [
                         "status"  => 1,
                         "message" => "Transaction success"
@@ -205,7 +260,7 @@ class CreditDebitController extends BaseController
                 }else{
                     return  $result = [
                         "status"  => 0,
-                        "message" => "Transaction failed"
+                        "message" => "Transaction failed23"
                     ];
                 }
               

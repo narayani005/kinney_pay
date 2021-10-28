@@ -21,12 +21,22 @@
                         <form action="/credit-debit" method="POST">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <div class="mb-3 row">
-                                <label class="col-md-2 col-form-label">Transfer To :</label>
-                                <div class="col-md-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="self_account" id="self_account" value="{{ auth()->user()->mobile }}" checked>
-                                        <label class="form-check-label" for="self_account">
-                                            Self Account
+                                    <label class="col-md-2 col-form-label">Transfer To :</label>
+                                    <div class="col-md-1">
+                                        <div class="form-check">
+                                            <input type="hidden" name="self_mobile" value="{{ auth()->user()->mobile }}"> 
+                                            <input class="form-check-input" type="radio" name="self_account" id="self_account" value="send" checked>
+                                            <label class="form-check-label" for="self_account">
+                                                Send Money
+                                            </label>
+                                        </div>
+                                    </div>
+                                
+                                <div class="col-md-2">
+                                    <div class="form-check"> 
+                                        <input class="form-check-input" type="radio" name="self_account" id="self_account1" value="receive">
+                                        <label class="form-check-label" for="self_account1">
+                                            Receive Money
                                         </label>
                                     </div>
                                 </div>

@@ -27,7 +27,9 @@
                                                     <!--a href=""><h4><span class="badge bg-dark">  Share </span></h4> </a--> 
                                                     
                                                     <h5 class="text-uppercase font-size-16 text-white"> 
-                                                        @if(Auth()->user()->id == $data->trans_by_id)
+                                                        @if($data->trans_by_id == $data->trans_to_id && Auth()->user()->id == $data->trans_by_id)
+                                                            {{ $data->status }} By Self (@if($data->trans_type == 'kinney_plus') Kinney Plus @elseif($data->trans_type == 'kinney_vpo') Kinney VPO @else   @endif)
+                                                        @elseif(Auth()->user()->id == $data->trans_by_id)
                                                             Transferred To {{ $data->trans_to_name }}
                                                         @elseif(Auth()->user()->id == $data->trans_to_id)
                                                             Credited By {{ $data->trans_by_name }}

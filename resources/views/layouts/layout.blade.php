@@ -555,13 +555,13 @@
                                         <a href="{{ url('/Share-Wallet') }}"><i class="mdi mdi-cash-multiple" style="color: white !important;"></i> Send Money </a>
                                     </li>
 
-                                    <li>
+                                    <!--li>
                                         <a href="{{ url('/req-money') }}"><i class="mdi mdi-cash-multiple" style="color: white !important;"></i> Withdraw Money </a>
                                     </li>
 
                                     <li>
                                         <a href="{{ url('/req-money-history') }}"><i class="mdi mdi-cash-multiple" style="color: white !important;"></i> Withdraw History </a>
-                                    </li>
+                                    </li-->
                                     <li>
                                         <a href="{{ url('/mywallet') }}"><i class="mdi mdi-history" style="color: white !important;"></i> Transaction History </a>
                                     </li>
