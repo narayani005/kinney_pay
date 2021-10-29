@@ -66,10 +66,10 @@ class LoginController extends Controller
                 if (auth()->user()->is_admin == 1 ) {
                     return redirect()->route('home');
                 }else{
-                    return redirect('admin/login')->with('error', 'Access Denied');
+                    return redirect('/admin/login')->with('error', 'Access Denied');
                 } 
             }else{
-                return redirect()->route('admin/login')
+                return redirect()->route('/admin/login')
                     ->with('error','Email-Addr And Password Are Wrong.');
             }
     }

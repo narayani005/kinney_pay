@@ -36,16 +36,17 @@ class AddAccountController extends Controller
 
                 $mob_check = \DB::connection('kinney_vpo')->table("sb_end_users")
                 ->where('phone', $request->mobile)
+                ->orWhere('userID', $request->mobile)
                 ->first();
                 if($mob_check){
                 $getUserList = \DB::connection('kinney_vpo')->table("sb_end_users")
                 ->where('phone', $request->mobile)
+                ->orWhere('userID', $request->mobile)
                 ->where('password', $request->password)
                 ->first();
                  if($getUserList){
 
                     $unique_id = $getUserList->userID;
-
                     $exist_check = AddAccount::where('unique_id', $unique_id)->first();
 
                     if($exist_check){
@@ -94,12 +95,14 @@ class AddAccountController extends Controller
                 
                 $mob_check = \DB::connection('kinney_plus')->table("sb_end_users")
                 ->where('phone', $request->mobile)
+                ->orWhere('userID', $request->mobile)
                 ->first();
                 if($mob_check){
                     
                 /* Identify Mobile # using it */
                 $getUserList = \DB::connection('kinney_plus')->table("sb_end_users")
                 ->where('phone', $request->mobile)
+                ->orWhere('userID', $request->mobile)
                 ->where('password', $request->password)
                 ->first();  
                 if($getUserList){

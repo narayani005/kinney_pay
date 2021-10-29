@@ -29,7 +29,7 @@ class walletController extends Controller
         $user_wallet = DB::table('wallets as w')
             ->join('users as u1', 'u1.id', '=', 'w.trans_to_id')
             ->join('users as u2', 'u2.id', '=', 'w.trans_by_id')
-            ->select('w.wallet_id','w.trans_to_id','w.trans_to_name','u1.mobile as trans_to_mobile','u1.trans_type as trans_to_acc_type', 'w.score as trans_amt','w.trans_by_id', 'w.trans_by_name','u2.mobile as trans_by_mobile', 'u2.trans_type as trans_by_acc_type','w.updated_at as trans_on','w.trans_id','w.status','w.remark')
+            ->select('w.wallet_id','w.trans_to_id','w.trans_to_name','u1.mobile as trans_to_mobile','u1.trans_type as trans_to_acc_type', 'w.score as trans_amt','w.trans_by_id', 'w.trans_by_name','u2.mobile as trans_by_mobile', 'u2.trans_type as trans_by_acc_type','w.updated_at as trans_on','w.trans_id','w.status','w.remark', 'u1.unique_key as trans_to_key', 'u2.unique_key as trans_by_key')
             ->orderBy('w.created_at', 'DESC')
             ->get();
         if(Auth()->user()->is_admin == 1){

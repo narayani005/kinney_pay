@@ -548,9 +548,9 @@
                                     <li>
                                         <a href="{{ url('/Add-Wallet') }}"><i class="mdi mdi-account-circle" style="color: white !important;"></i> Self Transfer</a>
                                     </li>
-                                    <li>
+                                    <!--li>
                                         <a href="{{ url('/Bank-Accounts') }}"><i class="mdi mdi-bank" style="color: white !important;"></i> Bank Accounts</a>
-                                    </li>
+                                    </li-->
                                     <li>
                                         <a href="{{ url('/Share-Wallet') }}"><i class="mdi mdi-cash-multiple" style="color: white !important;"></i> Send Money </a>
                                     </li>
@@ -584,10 +584,10 @@
                                     <li>
                                         <a href="{{ url('/admin/wallet')}}"><i class="mdi mdi-history" style="color: white !important;"></i> Transaction History</a>
                                     </li>
-                                    <li>
+                                    <!--li>
                                         <a href="{{ url('/admin/req-money-history') }}"><i class="mdi mdi-cash-multiple" style="color: white !important;"></i> Withdraw History </a>
                                     </li>
-                                    <!--li>
+                                    <li>
                                         <a href="{{ url('/mywallet') }}"><i class="mdi mdi-history" style="color: white !important;"></i>Transaction History </a>
                                     </li-->
                                 </ul>

@@ -34,11 +34,11 @@ Transaction History
                                                 <thead>
                                                 <tr>
                                                         <th>#</th>
-                                                        <th>Name</th>
+                                                        <th>Name (Unique Key)</th>
                                                         <!--th>Position</th>
                                                         <th>Office</th-->
                                                         <th>Transaction Type</th>
-                                                        <th>Transfered By</th>
+                                                        <th>Transfered By (Unique Key)</th>
                                                         <th>Status</th>
                                                         <th>Credited date</th>
                                                         <th>Transferred Amount</th>
@@ -51,14 +51,14 @@ Transaction History
                                                 @foreach($datas as $data)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $data->trans_to_name }}</td>
+                                                        <td>{{ $data->trans_to_name }} ({{$data->trans_to_key}})</td>
                                                         <!--td>System Architect</td-->
                                                         <td>
                                                             @if($data->trans_to_acc_type == 'kinney_pay')
                                                                 Kinney Pay
                                                             @endif
                                                         </td>
-                                                        <td>{{ $data->trans_by_name }}</td>
+                                                        <td>{{ $data->trans_by_name }}  ({{$data->trans_by_key}})</td>
                                                         <td>
                                                             @if($data->status == 'Success')
                                                             <span class="badge bg-soft-success rounded-pill"><i

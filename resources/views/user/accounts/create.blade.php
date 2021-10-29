@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="example-text-input" class="col-md-2 col-form-label">Account Mobile:</label>
+                                <label for="example-text-input" class="col-md-2 col-form-label">Account Mobile/User ID:</label>
                                 <div class="col-md-3">
                                     <input class="form-control" name="mobile" type="text" value="" required/>
                                 </div>

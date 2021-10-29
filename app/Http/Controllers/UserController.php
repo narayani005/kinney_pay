@@ -838,7 +838,10 @@ class UserController extends Controller
             if($request->trans_type == "kinney_vpo"){
 
                 /* Identify Mobile # using it */
-                $getUserList = \DB::connection('kinney_vpo')->table("sb_end_users")->where('phone', $request->mobile)->where('password', $request->password)
+                $getUserList = \DB::connection('kinney_vpo')->table("sb_end_users")
+                ->where('phone', $request->mobile)
+                ->orWhere('userID', $request->mobile)
+                ->where('password', $request->password)
                 ->first();
 
                  if($getUserList){
@@ -879,7 +882,10 @@ class UserController extends Controller
 
             }elseif($request->trans_type == "kinney_plus"){
                 /* Identify Mobile # using it */
-                $getUserList = \DB::connection('kinney_plus')->table("sb_end_users")->where('phone', $request->mobile)->where('password', $request->password)->first();
+                $getUserList = \DB::connection('kinney_plus')->table("sb_end_users")
+                ->where('phone', $request->mobile)
+                ->orWhere('userID', $request->mobile)
+                ->where('password', $request->password)->first();
                 if($getUserList){
 
                     $unique_id = $getUserList->userID;

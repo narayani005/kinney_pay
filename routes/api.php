@@ -98,7 +98,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     /* Credit and Debit for Kinney Pay Wallet */
     Route::post('/self/credit-debit', [CreditDebitController::class , 'creditDebit' ]);
     });
-
+    //Route::post('/self/credit-debit', [CreditDebitController::class , 'creditDebit' ]);
 Route::get('/qrcode/{id}', [UserController::class , 'qrcode' ]);
 
 Route::post('/index',[UserController::class,'index']);
