@@ -34,11 +34,11 @@ Transaction History
                                                 <thead>
                                                 <tr>
                                                         <th>#</th>
-                                                        <th>Name (Unique Key)</th>
+                                                        <th>Name (User ID)</th>
                                                         <!--th>Position</th>
                                                         <th>Office</th-->
                                                         <th>Transaction Type</th>
-                                                        <th>Transfered By (Unique Key)</th>
+                                                        <th>Transfered By </th>
                                                         <th>Status</th>
                                                         <th>Credited date</th>
                                                         <th>Transferred Amount</th>
@@ -51,28 +51,61 @@ Transaction History
                                                 @foreach($datas as $data)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $data->trans_to_name }} ({{$data->trans_to_key}})</td>
+                                                        <td>{{ $data->trans_to_name }} ({{$data->trans_to_key}} )</td>
                                                         <!--td>System Architect</td-->
                                                         <td>
                                                             @if($data->trans_to_acc_type == 'kinney_pay')
                                                                 Kinney Pay
+                                                            @elseif($data->trans_to_acc_type == 'kinney_plus')
+                                                                Kinney Plus
+                                                            @elseif($data->trans_to_acc_type == 'kinney_vpo')
+                                                                Kinney VPO
+                                                            @else
+                                                                Kinney Pay
                                                             @endif
                                                         </td>
-                                                        <td>{{ $data->trans_by_name }}  ({{$data->trans_by_key}})</td>
+                                                        <td>{{ $data->trans_by_name }}</td>
                                                         <td>
-                                                            @if($data->status == 'Success')
+                                                            @if($data->status == 'Success' || $data->status == 'Credited')
                                                             <span class="badge bg-soft-success rounded-pill"><i
                                                                         class="mdi mdi-checkbox-blank-circle text-success"></i>
                                                                     <span class="text-dark">{{ $data->status }}</span></span>
-                                                            @elseif($data->status == 'Failure')
+                                                            @elseif($data->status == 'Failure' || $data->status == 'Debited')
                                                             <span class="badge bg-soft-danger rounded-pill"><i
                                                                         class="mdi mdi-checkbox-blank-circle text-danger"></i>
                                                                     <span class="text-dark">{{ $data->status }}</span></span>
+                                                            @else
+                                                            {{ $data->status }}
                                                             @endif    
                                                         </td>
                                                         <td>{{ $data->trans_on }}</td>
-                                                        <td> ₹ {{ $data->trans_amt }} </a></td>
-                                                        <td> {{ $data->remark }} </a></td>
+                                                        <td> ₹ {{ $data->trans_amt }} </td>
+                                                        <td> 
+                                                            @if($data->remark == 'self_transaction' || $data->status == 'Credited' || $data->status == 'Debited') 
+                                                                Self Transaction 
+                                                                @if($data->status == 'Credited') 
+                                                                    Credited by 
+                                                                    @if($data->wallet_trans == 'kinney_plus')
+                                                                        Kinney Plus
+                                                                    @elseif($data->wallet_trans == 'kinney_vpo')
+                                                                        Kinney VPO
+                                                                    @else 
+                                                                        Kinney Pay
+                                                                    @endif
+                                                                @elseif($data->status == 'Debited') 
+                                                                    Credited to 
+                                                                    @if($data->wallet_trans == 'kinney_plus')
+                                                                        Kinney Plus
+                                                                    @elseif($data->wallet_trans == 'kinney_vpo')
+                                                                        Kinney VPO
+                                                                    @else 
+                                                                        Kinney Pay
+                                                                    @endif
+                                                                @else  
+
+                                                                @endif 
+                                                            @else {{ $data->remark }} 
+                                                            @endif</td>
                                                         <td> <a onclick="return confirm('Really want to delete?')" href="{{ url('/admin/delete_wallet/'. $data->wallet_id ) }}">  <i class="mdi mdi-delete fa-2x"></i></a></td>
                                                     </tr>
                                                 @endforeach
