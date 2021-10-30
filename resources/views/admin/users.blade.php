@@ -31,6 +31,7 @@
                                     <th>Mobile</th>
                                     <th>Email</th>
                                     <th>QR code</th>
+                                    <th>Accounts</th>
                                     <th>Role</th>
                                     <th>Action</th>
                                 </tr>
@@ -74,6 +75,16 @@
                                         @endif
                                     </td>
                                     <!-- QR Code End -->
+                                    <td> 
+                                    @php
+                                    $accs = \DB::table('add_accounts')->where('ref_id', $data->id)->get();
+                                    @endphp
+
+                                    @foreach($accs as $acc)
+                                    @if($acc->acc_type == 'kinney_plus') Kinney Plus - {{$acc->unique_id}} <br/> 
+                                    @elseif($acc->acc_type == 'kinney_vpo') Kinney VPO - {{$acc->unique_id}} <br/> @endif
+                                    @endforeach
+                                    </td>
                                     <td>@if($data->is_admin == 0) User @elseif($data->is_admin == 1) Admin @endif</td>
                                     <td>
                                     <a href="{{ url('/admin/profile/'. $data->id ) }}" target="_blank"> <i class="mdi mdi-eye fa-2x"></i></a>

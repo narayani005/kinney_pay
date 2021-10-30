@@ -29,10 +29,12 @@ class UserController extends Controller
         ->select('id','name','email', 'mobile', 'country_code', 'profile_img','trans_type','status','total_amt')
         ->where('id', $id)->get();
         //echo $qrcode;die();
+        $accounts = DB::table('add_accounts')->where('ref_id', $id)->get();
+
         if(Auth()->user()->is_admin == 1){
-            return view('admin.profile', ['data' => $data, 'qrcode' => $qrcode]);
+            return view('admin.profile', ['data' => $data, 'qrcode' => $qrcode, 'accounts' => $accounts]);
         }else{
-            return view('user.profile', ['data' => $data, 'qrcode' => $qrcode]);
+            return view('user.profile', ['data' => $data, 'qrcode' => $qrcode, 'accounts' => $accounts]);
         }
 
     }

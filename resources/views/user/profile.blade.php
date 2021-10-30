@@ -64,6 +64,23 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">Added Accounts :</label>
+                        <div class="col-md-5">
+                            <div class="form-check">
+                                @foreach($accounts as $acc)
+                                    @if($acc->acc_type == 'kinney_plus')
+                                    <label class="col-md-4 col-form-label"> Kinney Plus - {{ $acc->unique_id }} <br/></label>
+                                    @elseif($acc->acc_type == 'kinney_vpo')
+                                    <label class="col-md-4 col-form-label"> Kinney VPO - {{ $acc->unique_id }} <br/></label>
+                                    @endif
+                                    
+                                @endforeach
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">QR Code :</label>
                         <div class="col-md-5">
                     
