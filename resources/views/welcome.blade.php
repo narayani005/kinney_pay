@@ -134,7 +134,7 @@
 			<div class="item">
 				<div class="single-app-features text-center">
 					<i class="flaticon-cloud-computing"></i>
-					<h3>2-Step Verification on All Accounts</h3>
+					<h3>2-Step Verification</h3>
 					<p>In addition to the normal username and password validation, you can also enable a 
 					2-step verification to your mobile phone, adding another layer of security to your account.</p>
 					<div class="line"></div><!-- /.line -->
@@ -480,13 +480,13 @@
 					</div><!-- /.img-box -->
 					<div class="text-box">
 						<ul class="meta-info">
-							<li><a href="#">Business</a></li>
-							<li><a href="#">March 8, 2018</a></li>
-							<li><a href="#">by Admin</a></li>
+							<li><a href="{{url('/eco_freedom')}}">Business</a></li>
+							<li><a href="{{url('/eco_freedom')}}">Oct 30, 2021</a></li>
+							<li><a href="{{url('/eco_freedom')}}">by Admin</a></li>
 						</ul><!-- /.meta-info -->
-						<a href="#"><h3>Super App for New Devices made by <br /> touches of new tech</h3></a>
-						<p>We use a customized application make  rethoric of <br /> specifically designed a testing gnose....</p>
-						<a href="#" class="read-more">Read <i class="fa fa-angle-right"></i></a>
+						<a href="{{url('/eco_freedom')}}"><h3>How does cryptocurrency <br/> enable economic freedom?</h3></a>
+						<p>Our central argument is that higher acceptance and use of cryptocurrency would promote global economic freedom</p>
+						<a href="{{url('/eco_freedom')}}" class="read-more">Read <i class="fa fa-angle-right"></i></a>
 					</div><!-- /.text-box -->
 				</div><!-- /.single-blog-post -->
 			</div><!-- /.col-md-4 -->
@@ -497,13 +497,13 @@
 					</div><!-- /.img-box -->
 					<div class="text-box">
 						<ul class="meta-info">
-							<li><a href="#">Business</a></li>
-							<li><a href="#">March 8, 2018</a></li>
-							<li><a href="#">by Admin</a></li>
+							<li><a href="{{url('/wallet_feature')}}">Business</a></li>
+							<li><a href="{{url('/wallet_feature')}}">Oct 30, 2021</a></li>
+							<li><a href="{{url('/wallet_feature')}}">by Admin</a></li>
 						</ul><!-- /.meta-info -->
-						<a href="#"><h3>Super App for New Devices made by <br /> touches of new tech</h3></a>
-						<p>We use a customized application make  rethoric of <br /> specifically designed a testing gnose....</p>
-						<a href="#" class="read-more">Read <i class="fa fa-angle-right"></i></a>
+						<a href="{{url('/wallet_feature')}}"><h3>Different features / properties <br/> of a Cryptocurrency wallet?</h3></a>
+						<p>There are dozens of different wallets on the App Store and Google Play, and they all claim they are the best wallet.</p>
+						<a href="{{url('/wallet_feature')}}" class="read-more">Read <i class="fa fa-angle-right"></i></a>
 					</div><!-- /.text-box -->
 				</div><!-- /.single-blog-post -->
 			</div><!-- /.col-md-4 -->
@@ -514,67 +514,19 @@
 					</div><!-- /.img-box -->
 					<div class="text-box">
 						<ul class="meta-info">
-							<li><a href="#">Business</a></li>
-							<li><a href="#">March 8, 2018</a></li>
-							<li><a href="#">by Admin</a></li>
+							<li><a href="{{url('/celeb_users')}}">Business</a></li>
+							<li><a href="{{url('/celeb_users')}}">Oct 30, 2021</a></li>
+							<li><a href="{{url('/celeb_users')}}">by Admin</a></li>
 						</ul><!-- /.meta-info -->
-						<a href="#"><h3>Super App for New Devices made by <br /> touches of new tech</h3></a>
-						<p>We use a customized application make  rethoric of <br /> specifically designed a testing gnose....</p>
-						<a href="#" class="read-more">Read <i class="fa fa-angle-right"></i></a>
+						<a href="{{url('/celeb_users')}}"><h3>Celebrities Who Are Into Cryptocurrency</h3></a>
+						<p>The number of true cryptocurrency-enthusiasts among celebrities is rapidly increasing. Celebrities have an impact on a large number of people</p>
+						<a href="{{url('/celeb_users')}}" class="read-more">Read <i class="fa fa-angle-right"></i></a>
 					</div><!-- /.text-box -->
 				</div><!-- /.single-blog-post -->
 			</div><!-- /.col-md-4 -->
-			<div class="item">
-				<div class="single-blog-post">
-					<div class="img-box">
-						<img src="{{ asset('/kinnypay/assets/img/blog-1-1.png') }}" alt="Awesome Image"/>
-					</div><!-- /.img-box -->
-					<div class="text-box">
-						<ul class="meta-info">
-							<li><a href="#">Business</a></li>
-							<li><a href="#">March 8, 2018</a></li>
-							<li><a href="#">by Admin</a></li>
-						</ul><!-- /.meta-info -->
-						<a href="#"><h3>Super App for New Devices made by <br /> touches of new tech</h3></a>
-						<p>We use a customized application make  rethoric of <br /> specifically designed a testing gnose....</p>
-						<a href="#" class="read-more">Read <i class="fa fa-angle-right"></i></a>
-					</div><!-- /.text-box -->
-				</div><!-- /.single-blog-post -->
-			</div><!-- /.col-md-4 -->
-			<div class="item">
-				<div class="single-blog-post">
-					<div class="img-box">
-						<img src="{{ asset('/kinnypay/assets/img/blog-1-2.png') }}" alt="Awesome Image"/>
-					</div><!-- /.img-box -->
-					<div class="text-box">
-						<ul class="meta-info">
-							<li><a href="#">Business</a></li>
-							<li><a href="#">March 8, 2018</a></li>
-							<li><a href="#">by Admin</a></li>
-						</ul><!-- /.meta-info -->
-						<a href="#"><h3>Super App for New Devices made by <br /> touches of new tech</h3></a>
-						<p>We use a customized application make  rethoric of <br /> specifically designed a testing gnose....</p>
-						<a href="#" class="read-more">Read <i class="fa fa-angle-right"></i></a>
-					</div><!-- /.text-box -->
-				</div><!-- /.single-blog-post -->
-			</div><!-- /.col-md-4 -->
-			<div class="item">
-				<div class="single-blog-post">
-					<div class="img-box">
-						<img src="{{ asset('/kinnypay/assets/img/blog-1-3.png') }}" alt="Awesome Image"/>
-					</div><!-- /.img-box -->
-					<div class="text-box">
-						<ul class="meta-info">
-							<li><a href="#">Business</a></li>
-							<li><a href="#">March 8, 2018</a></li>
-							<li><a href="#">by Admin</a></li>
-						</ul><!-- /.meta-info -->
-						<a href="#"><h3>Super App for New Devices made by <br /> touches of new tech</h3></a>
-						<p>We use a customized application make  rethoric of <br /> specifically designed a testing gnose....</p>
-						<a href="#" class="read-more">Read <i class="fa fa-angle-right"></i></a>
-					</div><!-- /.text-box -->
-				</div><!-- /.single-blog-post -->
-			</div><!-- /.col-md-4 -->
+			
+			
+		
 		</div><!-- /.blog-carousel -->
 	</div><!-- /.container -->
 </section><!-- /.blog-style-one -->
@@ -603,7 +555,8 @@
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<div class="footer-widget about-widget">
 						<a href="#"><img style="width:50%" src="{{ asset('/kinnypay/assets/img/flogo.png') }}" alt="Awesome Image"/></a>
-						<p>Be the first to find out about exclusive deals, the latest Lookbooks trends. We're on a mission to build a better future where technology.</p>
+						<p><b>Awesome App for Your Modern Lifestyle - </b> Kinney pay focus is on speed, with low resource
+usage and simplifying cryptocurrency. </p>
 						<div class="social">
 							<a href="#" class="fab fa-facebook-f"></a><!--
 							--><a href="#" class="fab fa-twitter"></a><!--
@@ -628,7 +581,7 @@
 						<h3>Quick Links</h3>
 					</div><!-- /.title -->
 					
-					<ul class="list-inline link-list">
+					<ul class="link-list">
                                 <li><a href="{{url('/')}}">Home</a></li><!--
 							--><li><a href="{{url('/#features')}}">Features</a></li><!--
 							--><li><a href="{{url('/#how-it-works')}}">How it works</a></li><!--
@@ -651,22 +604,22 @@
 					<div class="tweets-carousel owl-theme owl-carousel">
 						<div class="item">
 							<div class="single-tweet">
-								<p><i class="fab fa-twitter"></i>Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eius mod tempor incididunt.</p>
+								<p><i class="fab fa-twitter"></i>Crypto Currency, invented in 2008, Came into usage from 2009. Starting from 2017, Cryptocurrency became one of the most exciting domains to explore and to grow</p>
 							</div><!-- /.single-tweet -->
 						</div><!-- /.item -->
 						<div class="item">
 							<div class="single-tweet">
-								<p><i class="fab fa-twitter"></i>Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eius mod tempor incididunt.</p>
+								<p><i class="fab fa-twitter"></i>Cryptocurrency is a decentralized digital currency, without any bank as an intermediary. It can be sent from user to user on a cryptocurrency network.</p>
 							</div><!-- /.single-tweet -->
 						</div><!-- /.item -->
 						<div class="item">
 							<div class="single-tweet">
-								<p><i class="fab fa-twitter"></i>Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eius mod tempor incididunt.</p>
+								<p><i class="fab fa-twitter"></i>On 30th of November 2020, the cryptocurrency reached a new all time high of $19,860 coming above the previous all time high from december 2017.</p>
 							</div><!-- /.single-tweet -->
 						</div><!-- /.item -->
 						<div class="item">
 							<div class="single-tweet">
-								<p><i class="fab fa-twitter"></i>Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eius mod tempor incididunt.</p>
+								<p><i class="fab fa-twitter"></i>On 2021, 19th of January, Elon Musk tweeted "In retrospect, it was inevitable", for Bitcoin, which raised the price to $37,299 with just $5000 in an hour</p>
 							</div><!-- /.single-tweet -->
 						</div><!-- /.item -->
 					</div><!-- /.tweets-carousel -->

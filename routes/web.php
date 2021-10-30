@@ -112,6 +112,9 @@ Route::view('/sitemap', 'sitemap')-> name("sitemap");
 Route::view('/easy_to_manage', 'easy_to_manage')-> name("easy_to_manage");
 Route::view('/responsive_design', 'responsive_design')-> name("responsive_design");
 Route::view('/latest_integration', 'latest_integration')-> name("latest_integration");
+Route::view('/eco_freedom', 'eco_freedom')-> name("eco_freedom");
+Route::view('/wallet_feature', 'wallet_feature')-> name("wallet_feature");
+Route::view('/celeb_users', 'celeb_users')-> name("celeb_users");
 
 /* Send SMS */
 Route::get('sendSMS', [SMSController::class, 'index']);

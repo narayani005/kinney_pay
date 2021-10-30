@@ -79,7 +79,8 @@
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<div class="footer-widget about-widget">
 						<a href="#"><img style="width:50%" src="{{ asset('/kinnypay/assets/img/flogo.png') }}" alt="Awesome Image"/></a>
-						<p>Be the first to find out about exclusive deals, the latest Lookbooks trends. We're on a mission to build a better future where technology.</p>
+						<p><b>Awesome App for Your Modern Lifestyle - </b> Kinney pay focus is on speed, with low resource
+usage and simplifying cryptocurrency. </p>
 						<div class="social">
 							<a href="#" class="fab fa-facebook-f"></a><!--
 							--><a href="#" class="fab fa-twitter"></a><!--
@@ -103,7 +104,7 @@
 					<div class="title">
 						<h3>Quick Links</h3>
 					</div><!-- /.title -->
-					<ul class="list-inline link-list">
+					<ul class="link-list">
                                 <li><a href="{{url('/')}}">Home</a></li><!--
 							--><li><a href="{{url('/#features')}}">Features</a></li><!--
 							--><li><a href="{{url('/#how-it-works')}}">How it works</a></li><!--
@@ -125,22 +126,22 @@
 					<div class="tweets-carousel owl-theme owl-carousel">
 						<div class="item">
 							<div class="single-tweet">
-								<p><i class="fab fa-twitter"></i>Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eius mod tempor incididunt.</p>
+								<p><i class="fab fa-twitter"></i>Crypto Currency, invented in 2008, Came into usage from 2009. Starting from 2017, Cryptocurrency became one of the most exciting domains to explore and to grow</p>
 							</div><!-- /.single-tweet -->
 						</div><!-- /.item -->
 						<div class="item">
 							<div class="single-tweet">
-								<p><i class="fab fa-twitter"></i>Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eius mod tempor incididunt.</p>
+								<p><i class="fab fa-twitter"></i>Cryptocurrency is a decentralized digital currency, without any bank as an intermediary. It can be sent from user to user on a cryptocurrency network.</p>
 							</div><!-- /.single-tweet -->
 						</div><!-- /.item -->
 						<div class="item">
 							<div class="single-tweet">
-								<p><i class="fab fa-twitter"></i>Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eius mod tempor incididunt.</p>
+								<p><i class="fab fa-twitter"></i>On 30th of November 2020, the cryptocurrency reached a new all time high of $19,860 coming above the previous all time high from december 2017.</p>
 							</div><!-- /.single-tweet -->
 						</div><!-- /.item -->
 						<div class="item">
 							<div class="single-tweet">
-								<p><i class="fab fa-twitter"></i>Lorem ipsum dolor sit amet, con sectetur adipiscing elit, sed do eius mod tempor incididunt.</p>
+								<p><i class="fab fa-twitter"></i>On 2021, 19th of January, Elon Musk tweeted "In retrospect, it was inevitable", for Bitcoin, which raised the price to $37,299 with just $5000 in an hour</p>
 							</div><!-- /.single-tweet -->
 						</div><!-- /.item -->
 					</div><!-- /.tweets-carousel -->
